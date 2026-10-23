@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102B45">
+<meta name="description" content="Checklist móvil de entrega de la remodelación de vivienda - Master Fix">
+<title>Control de Obra | Master Fix</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23102B45'/%3E%3Cpath d='M15 34l10 10 24-26' stroke='%23FF8A22' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{--navy:#102b45;--orange:#f37a1d;--bg:#f4f7fb;--txt:#142a3d;--muted:#64758b;--stroke:#dde5ef;--green:#128452}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:16px/1.42 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt)}
+header{background:linear-gradient(115deg,#0c2a46,#1b4866);color:white;padding:20px 18px 27px;border-radius:0 0 22px 22px;box-shadow:0 8px 24px #162f4720}
+main{width:min(720px,100%);margin:auto;padding:0 14px 60px}
+.head{max-width:720px;margin:auto}.brand{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand strong{font-size:22px;font-weight:900;letter-spacing:-.65px}.brand strong span{color:#ff9b48}
+.tag{font-size:11px;color:#d2e3f0;letter-spacing:.08em;font-weight:700;text-transform:uppercase}
+h1{font-size:23px;line-height:1.14;margin:24px 0 8px;letter-spacing:-.5px}
+.subtitle{color:#c5d8e8;margin:0;font-size:14px}
+.pill{display:inline-flex;margin-top:13px;background:#ffffff20;border:1px solid #ffffff33;border-radius:50px;padding:6px 12px;font-size:12px;font-weight:700}
+.summary{position:relative;z-index:2;background:white;border-radius:18px;padding:17px;margin:-14px 0 17px;box-shadow:0 6px 22px #17304714}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.big{font-weight:850;font-size:37px;letter-spacing:-2px;line-height:1.05}
+.muted{color:var(--muted);font-size:12px}
+.doneBadge{border-radius:50px;background:#e6f6ef;color:#11673f;padding:7px 10px;font-weight:800;font-size:13px}
+.progress{height:11px;background:#e8edf2;border-radius:20px;overflow:hidden;margin:15px 0 11px}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#e87019,#ffaf55);border-radius:20px;transition:width .25s}
+.stats{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-weight:650}
+.controls{display:flex;align-items:center;gap:7px;overflow-x:auto;padding-bottom:6px;margin:5px 0 16px}
+button{font:inherit;cursor:pointer}
+.filter{flex:none;border:1px solid var(--stroke);border-radius:50px;padding:9px 13px;background:white;color:#31475e;font-weight:700;font-size:13px}
+.filter.active{background:var(--navy);border-color:var(--navy);color:white}
+.section{background:white;border:1px solid var(--stroke);border-radius:16px;margin:0 0 12px;overflow:hidden;box-shadow:0 2px 9px #183f6008}
+.secHead{display:flex;align-items:center;gap:12px;padding:15px 13px;border-bottom:1px solid #edf1f6}
+.secIcon{display:grid;place-items:center;background:#ecf2f8;width:37px;height:37px;border-radius:10px;font-size:18px;flex:none}
+.secName{font-size:15px;letter-spacing:-.2px;font-weight:800}.secCount{font-size:12px;color:var(--muted);margin-top:2px}
+.secProgress{margin-left:auto;font-size:12px;font-weight:800;color:#697b8f;background:#f1f4f8;border-radius:16px;padding:5px 9px;flex:none}
+.task{display:flex;align-items:flex-start;padding:15px 13px;gap:13px;cursor:pointer;min-height:60px;border-bottom:1px solid #f0f2f5;-webkit-tap-highlight-color:transparent}
+.task:last-child{border-bottom:0}
+.task input{width:22px;height:22px;accent-color:var(--green);margin:1px 0 0;flex:none;cursor:pointer}
+.taskText{flex:1;line-height:1.35;font-weight:570;font-size:14px}
+.task.complete .taskText{text-decoration:line-through;color:#8495a5}
+.slot{display:inline-block;background:#f2f5f8;color:#607187;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:750;margin-top:7px}
+.slot.last{background:#fff2df;color:#b25a03}
+.task.complete{background:#f6fcf8}
+.empty{color:var(--muted);text-align:center;padding:30px 12px;font-size:14px}
+.note{border:1px dashed #d1aa74;background:#fffaf2;border-radius:15px;padding:14px 15px;margin-top:16px}
+.note h2{font-size:14px;margin:0 0 8px}.note p{font-size:13px;margin:0;color:#806947}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:17px}
+.toolbtn{border-radius:12px;padding:12px 7px;background:#fff;color:var(--navy);border:1px solid var(--stroke);font-weight:750;font-size:13px}
+.toolbtn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+.foot{color:#8290a0;font-size:12px;text-align:center;margin:16px 6px;line-height:1.5}
+.notice{font-size:12px;color:#677b8b;padding:9px 12px;background:#eef3f9;border-radius:10px;margin:0 0 15px}
+@media(min-width:680px){header{padding-top:30px;padding-bottom:44px}.summary{margin-top:-25px}h1{font-size:30px}}
+</style>
+</head>
+<body>
+<header><div class="head">
+<div class="brand"><strong>MASTER<span>FIX</span></strong><span class="tag">Control de entrega</span></div>
+<h1>Remodelación de vivienda</h1>
+<p class="subtitle">Lista de verificación final por áreas</p>
+<div class="pill">📅 Entrega: sábado 24 de octubre de 2026</div>
+</div></header>
+<main>
+<section class="summary" aria-live="polite">
+<div class="top"><div><div class="muted" style="margin-bottom:5px">AVANCE DEL PROYECTO</div><div class="big" id="counter">0 / 22</div></div><div class="doneBadge" id="percent">0%</div></div>
+<div class="progress"><span id="bar"></span></div>
+<div class="stats"><span id="remain">22 pendientes</span><span id="message">Trabajos de cierre</span></div>
+</section>
+<div class="notice">✓ Marque cada trabajo al terminarlo. El avance queda guardado en este navegador del teléfono.</div>
+<nav class="controls" aria-label="Filtros">
+<button type="button" class="filter active" data-filter="all">Todos</button>
+<button type="button" class="filter" data-filter="pending">Pendientes</button>
+<button type="button" class="filter" data-filter="complete">Terminados</button>
+<button type="button" class="filter" data-filter="morning">Mañana</button>
+<button type="button" class="filter" data-filter="afternoon">Tarde</button>
+<button type="button" class="filter" data-filter="night">Noche</button>
+</nav>
+<div id="areas"></div>
+<div class="note"><h2>📌 Trabajo aplazado (fuera de la entrega)</h2><p>Extracción completa de la raíz del árbol en la parte exterior de la vivienda.</p></div>
+<div class="tools">
+<button type="button" class="toolbtn primary" id="copy">Copiar reporte</button>
+<button type="button" class="toolbtn" id="reset">Reiniciar marcas</button>
+</div>
+<p class="foot">MASTER FIX · La pintura del piso peatonal es la última actividad programada. Verifique el tiempo de secado indicado por el fabricante antes de la entrega. El progreso se guarda solo en este navegador; no se sincroniza entre teléfonos.</p>
+</main>
+<script>
+(function(){
+'use strict';
+var groups=[
+{icon:'🚪',name:'Dormitorio principal',items:[
+['Pintar la puerta del dormitorio principal','Mañana'],
+['Colocar la puerta cuando la pintura esté seca','Tarde']]},
+{icon:'🛏️',name:'Dormitorio secundario',items:[
+['Colocar la puerta del segundo cuarto','Tarde'],
+['Instalar los vidrios de la solaire','Mañana'],
+['Cambiar el desagüe de la esquina','Mañana']]},
+{icon:'🚿',name:'Baño',items:[
+['Pintar el baño','Tarde'],
+['Instalar la solaire completa','Mañana'],
+['Colocar la puerta del baño','Tarde']]},
+{icon:'🍽️',name:'Cocina y pantry',items:[
+['Colocar las 3 piezas de cerámica pendientes','Mañana'],
+['Fraguar la parte inferior del pantry','Tarde'],
+['Retocar la pintura de la cocina','Tarde']]},
+{icon:'🛋️',name:'Sala',items:[['Retocar la pintura de la sala','Tarde']]},
+{icon:'🧰',name:'Patio y lavado',items:[
+['Fabricar e instalar el cancel metálico perimetral del patio','Mañana'],
+['Instalar la pila en la zona de lavado','Mañana'],
+['Pintar el patio completo','Tarde']]},
+{icon:'🏠',name:'Fachada, verja y techo',items:[
+['Pintar la fachada principal de la casa','Tarde'],
+['Retocar la pintura de los polines de la prolongación del techo en la verja','Tarde'],
+['Aplicar el spray sellador en los espacios pendientes del techo','Mañana'],
+['Limpiar la zona de la verja','Noche']]},
+{icon:'✨',name:'Limpieza y acabado final',items:[
+['Realizar la limpieza general de puertas y ventanas','Noche'],
+['Realizar la limpieza general de toda la superficie del piso','Noche'],
+['Pintar el piso peatonal del dormitorio secundario y parte de la sala — ÚLTIMA ACTIVIDAD','Último']]}
+];
+var items=[];groups.forEach(function(g,gi){g.items.forEach(function(x,ti){items.push({id:gi+'-'+ti,group:gi,desc:x[0],slot:x[1]})})});
+var key='masterfix_control_entrega_20261023_v1',checks={},filter='all';
+try{checks=JSON.parse(localStorage.getItem(key)||'{}')||{}}catch(e){checks={}}
+var list=document.getElementById('areas');
+function save(){try{localStorage.setItem(key,JSON.stringify(checks))}catch(e){}}
+function el(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
+function matches(t){if(filter==='pending')return !checks[t.id];if(filter==='complete')return !!checks[t.id];if(filter==='morning')return t.slot==='Mañana';if(filter==='afternoon')return t.slot==='Tarde';if(filter==='night')return t.slot==='Noche'||t.slot==='Último';return true}
+function render(){
+var completed=items.filter(function(t){return !!checks[t.id]}).length,rem=items.length-completed;
+document.getElementById('counter').textContent=completed+' / '+items.length;
+document.getElementById('percent').textContent=Math.round(completed*100/items.length)+'%';
+document.getElementById('bar').style.width=(completed*100/items.length)+'%';
+document.getElementById('remain').textContent=rem+' pendiente'+(rem===1?'':'s');
+document.getElementById('message').textContent=rem===0?'¡Lista completa!':'Viernes 23 · Jornada final';
+list.replaceChildren();var any=false;
+groups.forEach(function(g,gi){
+var groupTasks=items.filter(function(t){return t.group===gi});
+var visible=groupTasks.filter(matches);if(!visible.length)return;any=true;
+var section=el('section','section'),head=el('div','secHead');
+head.appendChild(el('div','secIcon',g.icon));
+var names=el('div');names.appendChild(el('div','secName',(gi+1)+'. '+g.name));names.appendChild(el('div','secCount',g.items.length+' actividad'+(g.items.length===1?'':'es')));
+head.appendChild(names);
+head.appendChild(el('span','secProgress',groupTasks.filter(function(t){return checks[t.id]}).length+'/'+groupTasks.length));
+section.appendChild(head);
+visible.forEach(function(t){
+var row=el('label','task'+(checks[t.id]?' complete':'')),ck=el('input');ck.type='checkbox';ck.checked=!!checks[t.id];ck.setAttribute('aria-label',t.desc);
+ck.addEventListener('change',function(){checks[t.id]=ck.checked;save();render()});
+row.appendChild(ck);
+var content=el('div');content.appendChild(el('div','taskText',t.desc));
+content.appendChild(el('div','slot'+(t.slot==='Último'?' last':''),t.slot));
+row.appendChild(content);section.appendChild(row)
+});list.appendChild(section);
+});
+if(!any)list.appendChild(el('div','empty','No hay actividades en este filtro.'));
+}
+document.querySelectorAll('[data-filter]').forEach(function(b){b.addEventListener('click',function(){filter=b.getAttribute('data-filter');document.querySelectorAll('[data-filter]').forEach(function(x){x.classList.toggle('active',x===b)});render()})});
+document.getElementById('reset').addEventListener('click',function(){if(confirm('¿Quitar todas las marcas de trabajos terminados?')){checks={};save();render()}});
+document.getElementById('copy').addEventListener('click',function(){
+var done=items.filter(function(t){return !!checks[t.id]}).length;
+var report='MASTER FIX | CONTROL DE OBRA\nEntrega: 24/10/2026\nAvance: '+done+'/'+items.length+'\n\n';
+groups.forEach(function(g,gi){report+=g.name.toUpperCase()+'\n';items.filter(function(t){return t.group===gi}).forEach(function(t){report+=(checks[t.id]?'[✓] ':'[ ] ')+t.desc+'\n'});report+='\n'});
+report+='APLAZADO: Extracción de raíz del árbol en exterior.';
+function fallback(){var ta=el('textarea');ta.value=report;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();alert('Reporte copiado.')}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(report).then(function(){alert('Reporte copiado al portapapeles.')}).catch(fallback)}else fallback();
+});
+render();
+})();
+</script>
+</body></html>
